@@ -16,3 +16,14 @@ exports.createHeaders = function(accessToken){
     return headers;
 }
 
+exports.getAccessToken = function(req){
+    var authorization = req.get("Authorization");
+
+    if (authorization){
+        var array = authorization.split(" ");
+        var token = array[1];
+        return token;
+    } else {
+        return "noAuthorizationHeader";
+    }
+}

@@ -120,3 +120,72 @@ exports.tokenInfo = function(body){
     });
 }
 
+
+exports.getAccount = function(accessToken){
+    return new Promise(function(resolve, reject){
+        var url = "https://api.cc.email/v3/account/summary";
+        var headers = utilities.createHeaders(accessToken);
+        var options = {
+            url: url,
+            method: 'GET',
+            headers: headers
+        };
+        axios(options).then(function(result){
+            resolve(result.data);
+        }).catch(function(err){
+            reject(utilities.processAxiosError(err));
+        });
+    });
+}
+
+exports.getContactLists = function(accessToken){
+    return new Promise(function(resolve, reject){
+        var url = "https://api.cc.email/v3/contact_lists";
+        var headers = utilities.createHeaders(accessToken);
+        var options = {
+            url: url,
+            method: 'GET',
+            headers: headers
+        };
+        axios(options).then(function(result){
+            resolve(result.data);
+        }).catch(function(err){
+            reject(utilities.processAxiosError(err));
+        });
+    });
+}
+
+exports.getEmails = function(accessToken){
+    return new Promise(function(resolve, reject){
+        var url = "https://api.cc.email/v3/emails";
+        var headers = utilities.createHeaders(accessToken);
+        var options = {
+            url: url,
+            method: 'GET',
+            headers: headers
+        };
+        axios(options).then(function(result){
+            resolve(result.data);
+        }).catch(function(err){
+            reject(utilities.processAxiosError(err));
+        });
+    });
+}
+
+
+exports.getContacts = function(accessToken){
+    return new Promise(function(resolve, reject){
+        var url = "https://api.cc.email/v3/contacts";
+        var headers = utilities.createHeaders(accessToken);
+        var options = {
+            url: url,
+            method: 'GET',
+            headers: headers
+        };
+        axios(options).then(function(result){
+            resolve(result.data);
+        }).catch(function(err){
+            reject(utilities.processAxiosError(err));
+        });
+    });
+}

@@ -8,6 +8,8 @@ const PORT = 8080;
 const HOST = '0.0.0.0';
 
 const app = express();
+const utilities = require('./utilities');
+
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 app.use(cors());
@@ -40,5 +42,44 @@ app.post('/cc/tokenInfo', (req, res) => {
         res.status(400).json(err);
     });
 });
+
+
+app.get('/account', (req, res) => {
+    var accessToken = utilities.getAccessToken(req);
+    ccService.getAccount(accessToken).then(function(account){
+        res.json(account);
+    }).catch(function(err){
+        res.status(400).json(err);
+    });
+});
+
+app.get('/contact_lists', (req, res) => {
+    var accessToken = utilities.getAccessToken(req);
+    ccService.getContactLists(accessToken).then(function(contactLists){
+        res.json(contactLists);
+    }).catch(function(err){
+        res.status(400).json(err);
+    });
+});
+
+app.get('/emails', (req, res) => {
+    var accessToken = utilities.getAccessToken(req);
+    ccService.getEmails(accessToken).then(function(emails){
+        res.json(emails);
+    }).catch(function(err){
+        res.status(400).json(err);
+    });
+});
+
+
+app.get('/contacts', (req, res) => {
+    var accessToken = utilities.getAccessToken(req);
+    ccService.getContacts(accessToken).then(function(contacts){
+        res.json(contacts);
+    }).catch(function(err){
+        res.status(400).json(err);
+    });
+});
+
 
 app.listen(PORT, HOST);
