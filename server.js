@@ -81,5 +81,32 @@ app.get('/contacts', (req, res) => {
     });
 });
 
+app.get('/contacts/:id', (req, res) => {
+    var accessToken = utilities.getAccessToken(req);
+    ccService.getContact(accessToken, req.params.id).then(function(contact){
+        res.json(contact);
+    }).catch(function(err){
+        res.status(400).json(err);
+    });
+});
+
+app.get('/emails/:id', (req, res) => {
+    var accessToken = utilities.getAccessToken(req);
+    ccService.getEmail(accessToken, req.params.id).then(function(email){
+        res.json(email);
+    }).catch(function(err){
+        res.status(400).json(err);
+    });
+});
+
+
+app.get('/contact_lists/:id', (req, res) => {
+    var accessToken = utilities.getAccessToken(req);
+    ccService.getContactList(accessToken, req.params.id).then(function(contactList){
+        res.json(contactList);
+    }).catch(function(err){
+        res.status(400).json(err);
+    });
+});
 
 app.listen(PORT, HOST);
