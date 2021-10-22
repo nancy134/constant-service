@@ -109,4 +109,33 @@ app.get('/contact_lists/:id', (req, res) => {
     });
 });
 
+app.post('/contacts', (req, res) => {
+    var accessToken = utilities.getAccessToken(req);
+    ccService.createContact(accessToken, req.body).then(function(contact){
+        res.json(contact);
+    }).catch(function(err){
+        res.status(400).json(err);
+    });
+});
+
+app.put('/contacts/:id', (req, res) => {
+    var accessToken = utilities.getAccessToken(req);
+    ccService.updateContact(accessToken, req.params.id, req.body).then(function(contact){
+        res.json(contact);
+    }).catch(function(err){
+        res.status(400).json(err);
+    });
+});
+
+app.post('/contacts/sign_up_form', (req, res) => {
+    var accessToken = utilities.getAccessToken(req);
+    ccService.signupContact(accessToken, req.body).then(function(contact){
+        res.json(contact);
+    }).catch(function(err){
+        res.status(400).json(err);
+    });
+});
+
+
+
 app.listen(PORT, HOST);

@@ -241,3 +241,58 @@ exports.getContactList = function(accessToken, id){
         });
     });
 }
+
+exports.createContact = function(accessToken, body){
+    return new Promise(function(resolve, reject){
+        var url = "https://api.cc.email/v3/contacts/";
+        var headers = utilities.createHeaders(accessToken);
+        var options = {
+            url: url,
+            method: 'POST',
+            data: body,
+            headers: headers
+        };
+        axios(options).then(function(result){
+            resolve(result.data);
+        }).catch(function(err){
+            reject(utilities.processAxiosError(err));
+        });
+    });
+}
+
+
+exports.updateContact = function(accessToken, id, body){
+    return new Promise(function(resolve, reject){
+        var url = "https://api.cc.email/v3/contacts/" + id;
+        var headers = utilities.createHeaders(accessToken);
+        var options = {
+            url: url,
+            method: 'PUT',
+            data: body,
+            headers: headers
+        };
+        axios(options).then(function(result){
+            resolve(result.data);
+        }).catch(function(err){
+            reject(utilities.processAxiosError(err));
+        });
+    });
+}
+
+exports.signupContact = function(accessToken, body){
+    return new Promise(function(resolve, reject){
+        var url = "https://api.cc.email/v3/contacts/sign_up_form";
+        var headers = utilities.createHeaders(accessToken);
+        var options = {
+            url: url,
+            method: 'POST',
+            data: body,
+            headers: headers
+        };
+        axios(options).then(function(result){
+            resolve(result.data);
+        }).catch(function(err){
+            reject(utilities.processAxiosError(err));
+        });
+    });
+}
