@@ -136,6 +136,32 @@ app.post('/contacts/sign_up_form', (req, res) => {
     });
 });
 
+app.post('/contact_lists', (req, res) => {
+    var accessToken = utilities.getAccessToken(req);
+    ccService.createContactList(accessToken, req.body).then(function(contactList){
+        res.json(contactList);
+    }).catch(function(err){
+        res.status(400).json(err);
+    });
+});
+
+app.post('/contact_custom_fields', (req, res) => {
+    var accessToken = utilities.getAccessToken(req);
+    ccService.createContactCustomField(accessToken, req.body).then(function(customField){
+        res.json(customField);
+    }).catch(function(err){
+        res.status(400).json(err);
+    });
+});
+
+app.get('/contact_custom_fields', (req, res) => {
+    var accessToken = utilities.getAccessToken(req);
+    ccService.getContactCustomFields(accessToken).then(function(customFields){
+        res.json(customFields);
+    }).catch(function(err){
+        res.status(400).json(err);
+    });
+});
 
 
 app.listen(PORT, HOST);

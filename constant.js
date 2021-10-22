@@ -296,3 +296,56 @@ exports.signupContact = function(accessToken, body){
         });
     });
 }
+
+exports.createContactList = function(accessToken, body){
+    return new Promise(function(resolve, reject){
+        var url = "https://api.cc.email/v3/contact_lists/";
+        var headers = utilities.createHeaders(accessToken);
+        var options = {
+            url: url,
+            method: 'POST',
+            data: body,
+            headers: headers
+        };
+        axios(options).then(function(result){
+            resolve(result.data);
+        }).catch(function(err){
+            reject(utilities.processAxiosError(err));
+        });
+    });
+}
+
+exports.createContactCustomField = function(accessToken, body){
+    return new Promise(function(resolve, reject){
+        var url = "https://api.cc.email/v3/contact_custom_fields/";
+        var headers = utilities.createHeaders(accessToken);
+        var options = {
+            url: url,
+            method: 'POST',
+            data: body,
+            headers: headers
+        };
+        axios(options).then(function(result){
+            resolve(result.data);
+        }).catch(function(err){
+            reject(utilities.processAxiosError(err));
+        });
+    });
+}
+
+exports.getContactCustomFields = function(accessToken){
+    return new Promise(function(resolve, reject){
+        var url = "https://api.cc.email/v3/contact_custom_fields";
+        var headers = utilities.createHeaders(accessToken);
+        var options = {
+            url: url,
+            method: 'GET',
+            headers: headers
+        };
+        axios(options).then(function(result){
+            resolve(result.data);
+        }).catch(function(err){
+            reject(utilities.processAxiosError(err));
+        });
+    });
+}
