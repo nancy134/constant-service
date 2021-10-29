@@ -183,5 +183,41 @@ app.post('/contact_tags', (req, res) => {
     });
 });
 
+app.get('/contact_tags/:id', (req, res) => {
+    var accessToken = utilities.getAccessToken(req);
+    ccService.getContactTag(accessToken, req.params.id).then(function(tag){
+        res.json(tag);
+    }).catch(function(err){
+        res.status(400).json(err);
+    });
+});
+
+app.put('/contact_tags/:id', (req, res) => {
+    var accessToken = utilities.getAccessToken(req);
+    ccService.updateContactTag(accessToken, req.params.id, req.body).then(function(tag){
+        res.json(tag);
+    }).catch(function(err){
+        res.status(400).json(err);
+    });
+});
+
+app.delete('/contact_tags/:id', (req, res) => {
+    var accessToken = utilities.getAccessToken(req);
+    ccService.deleteContactTag(accessToken, req.params.id).then(function(tag){
+        res.json(tag);
+    }).catch(function(err){
+        res.status(400).json(err);
+    });
+});
+
+app.delete('/contacts/:id', (req, res) => {
+    var accessToken = utilities.getAccessToken(req);
+    ccService.deleteContact(accessToken, req.params.id).then(function(tag){
+        res.json(tag);
+    }).catch(function(err){
+        res.status(400).json(err);
+    });
+});
+
 
 app.listen(PORT, HOST);

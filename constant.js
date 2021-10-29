@@ -385,3 +385,74 @@ exports.createContactTag = function(accessToken, body){
         });
     });
 }
+
+exports.getContactTag = function(accessToken, tagId){
+    return new Promise(function(resolve, reject){
+        var url = "https://api.cc.email/v3/contact_tags/" + tagId;
+        var headers = utilities.createHeaders(accessToken);
+        var options = {
+            url: url,
+            method: 'GET',
+            headers: headers
+        };
+        axios(options).then(function(result){
+            resolve(result.data);
+        }).catch(function(err){
+            reject(utilities.processAxiosError(err));
+        });
+    });
+}
+
+exports.updateContactTag = function(accessToken, tagId, body){
+    return new Promise(function(resolve, reject){
+        var url = "https://api.cc.email/v3/contact_tags/" + tagId;
+        var headers = utilities.createHeaders(accessToken);
+        var options = {
+            url: url,
+            method: 'put',
+            headers: headers,
+            data: body
+        };
+        axios(options).then(function(result){
+            resolve(result.data);
+        }).catch(function(err){
+            reject(utilities.processAxiosError(err));
+        });
+    });
+}
+
+exports.deleteContactTag = function(accessToken, tagId){
+    return new Promise(function(resolve, reject){
+        var url = "https://api.cc.email/v3/contact_tags/" + tagId;
+        var headers = utilities.createHeaders(accessToken);
+        var options = {
+            url: url,
+            method: 'DELETE',
+            headers: headers
+        };
+        axios(options).then(function(result){
+            resolve(result.data);
+        }).catch(function(err){
+            reject(utilities.processAxiosError(err));
+        });
+    });
+}
+
+exports.deleteContact = function(accessToken, id){
+    return new Promise(function(resolve, reject){
+        var url = "https://api.cc.email/v3/contacts/" + id;
+        var headers = utilities.createHeaders(accessToken);
+        var options = {
+            url: url,
+            method: 'DELETE',
+            headers: headers
+        };
+        axios(options).then(function(result){
+            resolve(result.data);
+        }).catch(function(err){
+            reject(utilities.processAxiosError(err));
+        });
+    });
+}
+
+
