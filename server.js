@@ -163,5 +163,25 @@ app.get('/contact_custom_fields', (req, res) => {
     });
 });
 
+app.get('/contact_tags', (req, res) => {
+    var accessToken = utilities.getAccessToken(req);
+    ccService.getContactTags(accessToken).then(function(contactTags){
+        res.json(contactTags);
+    }).catch(function(err){
+        res.status(400).json(err);
+    });
+});
+
+app.post('/contact_tags', (req, res) => {
+    var accessToken = utilities.getAccessToken(req);
+    console.log(req.body);
+    ccService.createContactTag(accessToken, req.body).then(function(contact){
+    //ccService.createContact(accessToken, req.body).then(function(contact){
+        res.json(contact);
+    }).catch(function(err){
+        res.status(400).json(err);
+    });
+});
+
 
 app.listen(PORT, HOST);

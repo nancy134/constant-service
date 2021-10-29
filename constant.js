@@ -349,3 +349,39 @@ exports.getContactCustomFields = function(accessToken){
         });
     });
 }
+
+exports.getContactTags = function(accessToken){
+    return new Promise(function(resolve, reject){
+        var url = "https://api.cc.email/v3/contact_tags";
+        var headers = utilities.createHeaders(accessToken);
+        var options = {
+            url: url,
+            method: 'GET',
+            headers: headers
+        };
+        axios(options).then(function(result){
+            resolve(result.data);
+        }).catch(function(err){
+            reject(utilities.processAxiosError(err));
+        });
+    });
+}
+
+
+exports.createContactTag = function(accessToken, body){
+    return new Promise(function(resolve, reject){
+        var url = "https://api.cc.email/v3/contact_tags/";
+        var headers = utilities.createHeaders(accessToken);
+        var options = {
+            url: url,
+            method: 'POST',
+            data: body,
+            headers: headers
+        };
+        axios(options).then(function(result){
+            resolve(result.data);
+        }).catch(function(err){
+            reject(utilities.processAxiosError(err));
+        });
+    });
+}
