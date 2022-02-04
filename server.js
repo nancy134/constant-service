@@ -9,6 +9,8 @@ const HOST = '0.0.0.0';
 
 const app = express();
 const utilities = require('./utilities');
+const url = require('url');
+
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
@@ -74,12 +76,15 @@ app.get('/emails', (req, res) => {
 
 app.get('/contacts', (req, res) => {
     var accessToken = utilities.getAccessToken(req);
-    ccService.getContacts(accessToken).then(function(contacts){
+    var urlParts  = url.parse(req.url);
+    var queryStr = urlParts.query;
+    ccService.getContacts(accessToken, queryStr).then(function(contacts){
         res.json(contacts);
     }).catch(function(err){
         res.status(400).json(err);
     });
 });
+
 
 app.get('/contacts/:id', (req, res) => {
     var accessToken = utilities.getAccessToken(req);

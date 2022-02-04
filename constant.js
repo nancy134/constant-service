@@ -173,9 +173,10 @@ exports.getEmails = function(accessToken){
 }
 
 
-exports.getContacts = function(accessToken){
+exports.getContacts = function(accessToken, query){
     return new Promise(function(resolve, reject){
         var url = "https://api.cc.email/v3/contacts";
+        if (query) url += "?" + query;
         var headers = utilities.createHeaders(accessToken);
         var options = {
             url: url,
@@ -189,6 +190,7 @@ exports.getContacts = function(accessToken){
         });
     });
 }
+
 
 exports.getContact = function(accessToken, id){
     return new Promise(function(resolve, reject){
