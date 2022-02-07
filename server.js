@@ -11,6 +11,8 @@ const app = express();
 const utilities = require('./utilities');
 const url = require('url');
 
+const sqsService = require('./sqs');
+
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
