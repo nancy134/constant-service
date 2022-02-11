@@ -8,7 +8,7 @@ const constantService = require('./constant');
 exports.handleSQSMessage = function(message){
     var json = JSON.parse(message.Body);
     var json2 = JSON.parse(json.Message);
-    var queryStr = "?email="+json2.email;
+    var queryStr = "email="+json2.email;
 
     var accessToken = json2.token;
     console.log(accessToken);
