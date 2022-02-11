@@ -14,7 +14,11 @@ exports.handleSQSMessage = function(message){
     console.log(accessToken);
     
     constantService.getContacts(accessToken, queryStr).then(function(contacts){
-        console.log(contacts);
+        if (contacts.contacts.length > 0){
+            console.log("found contact "+ queryStr);
+        } else {
+            console.log("did not find contact"+ queryStr);
+        }
     }).catch(function(err){
         console.log(err);
     });
