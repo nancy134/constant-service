@@ -11,13 +11,27 @@ exports.handleSQSMessage = function(message){
     var queryStr = "email="+json2.email;
 
     var accessToken = json2.token;
-    console.log(accessToken);
-    
+
     constantService.getContacts(accessToken, queryStr).then(function(contacts){
         if (contacts.contacts.length > 0){
-            console.log("found contact "+ queryStr);
         } else {
-            console.log("did not find contact"+ queryStr);
+            console.log("Create Account");
+            var contact =
+            {
+                email_address: {
+                    address : json2.email
+                },
+                first: json2.first,
+                last : json2.last,
+                create_source: "Account",
+                custom_fields: 
+                {
+                    custom_field_id: "9b3ca464-333f-11ec-834b-fa163e2743c5",
+                    value: json2.sparkId
+                }
+            };
+
+            console.log(contact);
         }
     }).catch(function(err){
         console.log(err);
