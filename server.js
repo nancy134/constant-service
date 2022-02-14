@@ -154,7 +154,9 @@ app.post('/contact_lists', (req, res) => {
 
 app.post('/contact_custom_fields', (req, res) => {
     var accessToken = utilities.getAccessToken(req);
-    ccService.createContactCustomField(accessToken, req.body).then(function(customField){
+    var urlParts  = url.parse(req.url);
+    var queryStr = urlParts.query;
+    ccService.createContactCustomField(accessToken, req.body, queryStr).then(function(customField){
         res.json(customField);
     }).catch(function(err){
         res.status(400).json(err);

@@ -24,11 +24,12 @@ exports.handleSQSMessage = function(message){
                 first: json2.first,
                 last : json2.last,
                 create_source: "Account",
-                custom_fields: 
-                {
-                    custom_field_id: "9b3ca464-333f-11ec-834b-fa163e2743c5",
-                    value: json2.sparkId
-                }
+
+                custom_fields: [
+                    {
+                        custom_field_id: "9b3ca464-333f-11ec-834b-fa163e2743c5",
+                        value: json2.sparkId
+                    }]
             };
 
             console.log(contact);

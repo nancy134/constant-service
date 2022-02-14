@@ -335,9 +335,10 @@ exports.createContactCustomField = function(accessToken, body){
     });
 }
 
-exports.getContactCustomFields = function(accessToken){
+exports.getContactCustomFields = function(accessToken, query){
     return new Promise(function(resolve, reject){
         var url = "https://api.cc.email/v3/contact_custom_fields";
+        if (query) url += "?" + query;
         var headers = utilities.createHeaders(accessToken);
         var options = {
             url: url,
