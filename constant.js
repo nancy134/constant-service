@@ -335,10 +335,9 @@ exports.createContactCustomField = function(accessToken, body){
     });
 }
 
-exports.getContactCustomFields = function(accessToken, query){
+exports.getContactCustomFields = function(accessToken, name){
     return new Promise(function(resolve, reject){
-        var url = "https://api.cc.email/v3/contact_custom_fields";
-        if (query) url += "?" + query;
+        var url = "https://api.cc.email/v3/contact_custom_fields?limit=100";
         var headers = utilities.createHeaders(accessToken);
         var options = {
             url: url,
@@ -346,12 +345,24 @@ exports.getContactCustomFields = function(accessToken, query){
             headers: headers
         };
         axios(options).then(function(result){
-            resolve(result.data);
+            if (name){
+                customField = {};
+                for (var i=0; i<result.data.custom_fields.length; i++){
+                    if (result.data.custom_fields[i].name === name){
+                        customField = result.data.custom_fields[i];
+
+                    }
+                }
+                resolve(customField);
+            } else {
+                resolve(result.data);
+            }
         }).catch(function(err){
             reject(utilities.processAxiosError(err));
         });
     });
 }
+
 
 exports.getContactTags = function(accessToken){
     return new Promise(function(resolve, reject){
