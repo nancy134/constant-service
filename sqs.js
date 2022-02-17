@@ -31,13 +31,16 @@ exports.handleSQSMessage = function(message){
                         value: json2.sparkId
                     }]
             };
-
             console.log(contact);
+            constantService.createContact(json2.token, contact).then(function(newContact){
+                console.log(newContact);
+            }).catch(function(err){
+                console.log(err);
+            });
         }
     }).catch(function(err){
         console.log(err);
     });
-
 }
 
 exports.sqsApp = Consumer.create({
