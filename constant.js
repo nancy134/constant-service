@@ -358,6 +358,7 @@ exports.getContactCustomFields = function(accessToken, name){
                 resolve(result.data);
             }
         }).catch(function(err){
+            console.log(err);
             reject(utilities.processAxiosError(err));
         });
     });

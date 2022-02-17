@@ -167,8 +167,12 @@ app.get('/contact_custom_fields', (req, res) => {
     var accessToken = utilities.getAccessToken(req);
     var name = req.query.name;
     ccService.getContactCustomFields(accessToken, name).then(function(customFields){
+        console.log("customFields:");
+        console.log(customFields);
         res.json(customFields);
     }).catch(function(err){
+        console.log("err:");
+        console.log(err);
         res.status(400).json(err);
     });
 });
