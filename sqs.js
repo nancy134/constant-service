@@ -27,7 +27,7 @@ exports.handleSQSMessage = function(message){
 
                 custom_fields: [
                     {
-                        custom_field_id: "9b3ca464-333f-11ec-834b-fa163e2743c5",
+                        custom_field_id: json2.customFieldId,
                         value: json2.sparkId
                     }]
             };
