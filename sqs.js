@@ -14,6 +14,7 @@ exports.handleSQSMessage = function(message){
 
     constantService.getContacts(accessToken, queryStr).then(function(contacts){
         if (contacts.contacts.length > 0){
+            console.log("Contact exists");
         } else {
             console.log("Create Account");
             var contact =
@@ -21,8 +22,8 @@ exports.handleSQSMessage = function(message){
                 email_address: {
                     address : json2.email
                 },
-                first: json2.first,
-                last : json2.last,
+                first_name: json2.first,
+                last_name : json2.last,
                 create_source: "Account",
 
                 custom_fields: [
