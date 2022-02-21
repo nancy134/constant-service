@@ -14,9 +14,16 @@ exports.handleSQSMessage = function(message){
 
     constantService.getContacts(accessToken, queryStr).then(function(contacts){
         if (contacts.contacts.length > 0){
-            console.log("Contact exists");
+            var first = contacts.contacts[0].first_name;
+            var last = contacts.contacts[0].last_name;
+            if (first !== json2.first || last !== json2.last){
+                console.log(first + " " + last + " does not match " + json2.first + " " + json2.last);
+            } else {
+                console.log(first + " " + last + " matches " + json2.first + " " + json2.last);
+            }
+
         } else {
-            console.log("Create Account");
+            //console.log("Create Account");
             var contact =
             {
                 email_address: {
@@ -32,15 +39,15 @@ exports.handleSQSMessage = function(message){
                         value: json2.sparkId
                     }]
             };
-            console.log(contact);
+            //console.log(contact);
             constantService.createContact(json2.token, contact).then(function(newContact){
-                console.log(newContact);
+                //console.log(newContact);
             }).catch(function(err){
-                console.log(err);
+                //console.log(err);
             });
         }
     }).catch(function(err){
-        console.log(err);
+        //console.log(err);
     });
 }
 
@@ -51,7 +58,7 @@ exports.sqsApp = Consumer.create({
 });
 
 exports.handleError = function(err){
-    console.log(err);
+    //console.log(err);
 }
 
 module.exports.sqsApp.on('error', (err) => {
