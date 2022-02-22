@@ -17,8 +17,10 @@ exports.handleSQSMessage = function(message){
             var first = contacts.contacts[0].first_name;
             var last = contacts.contacts[0].last_name;
 
-             var id = contact.contacts[0].contact_id;
+            var id = contacts.contacts[0].contact_id;
+
             var body = contacts.contacts[0];
+            body.update_source = "Account";
 
             if (!first && json2.first) body.first_name = json2.first;
             if (!last && json2.last) body.last_name = json2.last;
