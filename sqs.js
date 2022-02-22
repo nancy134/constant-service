@@ -16,11 +16,18 @@ exports.handleSQSMessage = function(message){
         if (contacts.contacts.length > 0){
             var first = contacts.contacts[0].first_name;
             var last = contacts.contacts[0].last_name;
-            if (first !== json2.first || last !== json2.last){
-                console.log(first + " " + last + " does not match " + json2.first + " " + json2.last);
-            } else {
-                console.log(first + " " + last + " matches " + json2.first + " " + json2.last);
-            }
+
+             var id = contact.contacts[0].contact_id;
+            var body = contacts.contacts[0];
+
+            if (!first && json2.first) body.first_name = json2.first;
+            if (!last && json2.last) body.last_name = json2.last;
+
+            constantService.updateContact(accessToken, id, body).then(function(contact){
+                console.log(json2.email + " successfully updated");
+            }).catch(function(err){
+                console.log(err);
+            });
 
         } else {
             //console.log("Create Account");
