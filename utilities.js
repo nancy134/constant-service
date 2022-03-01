@@ -27,3 +27,44 @@ exports.getAccessToken = function(req){
         return "noAuthorizationHeader";
     }
 }
+
+exports.createConstantContactData = function(body, json2){
+    body.update_source = "Account";
+
+    if (!body.first_name && json2.first){
+        body.first_name = json2.first;
+    }
+    if (!body.last_name && json2.last){
+       body.last_name = json2.last;
+    }
+    
+    if (isPhone(body, "home")){
+        console.log("found home phone");
+    }
+    
+    if (isAddress(body, "home")){
+        console.log("found home address");
+    }
+    return body;
+
+
+}
+
+exports.isPhone = function(c, kind){
+    var p = c.phone_numbers;
+    var isFound = false;
+    for (var i=0; i<p.length; i++){
+        if (p[i].kind === kind) isFound = true;
+    }
+    return isFound;
+}
+
+exports.isAddress = function(c, kind){
+    var a = c.street_addresses;
+    var isFound = false;
+    for (var i=0; i<a.length; i++){
+        if (a[i].kind === kind) isFound = true;
+    }
+    return isFound;
+}
+

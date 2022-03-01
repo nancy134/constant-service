@@ -5,6 +5,8 @@ const syncCCContact = process.env.AWS_SQS_SPARK_SYNC_CONTACT_TO_CC
 const { Consumer } = require('sqs-consumer');
 const constantService = require('./constant');
 
+const utilities = require('./utilities');
+
 exports.handleSQSMessage = function(message){
     var json = JSON.parse(message.Body);
     var json2 = JSON.parse(json.Message);
@@ -12,18 +14,15 @@ exports.handleSQSMessage = function(message){
 
     var accessToken = json2.token;
 
+
+
     constantService.getContacts(accessToken, queryStr).then(function(contacts){
         if (contacts.contacts.length > 0){
-            var first = contacts.contacts[0].first_name;
-            var last = contacts.contacts[0].last_name;
+
 
             var id = contacts.contacts[0].contact_id;
 
-            var body = contacts.contacts[0];
-            body.update_source = "Account";
-
-            if (!first && json2.first) body.first_name = json2.first;
-            if (!last && json2.last) body.last_name = json2.last;
+            var body = utilities.createConstantContactData(contacts.contacts[0], json2);
 
             constantService.updateContact(accessToken, id, body).then(function(contact){
                 console.log(json2.email + " successfully updated");
