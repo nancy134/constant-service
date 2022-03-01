@@ -38,14 +38,20 @@ exports.createConstantContactData = function(body, json2){
        body.last_name = json2.last;
     }
     
-    if (isPhone(body, "home")){
-        console.log("found home phone");
+    if (!isPhone(body, "home") && json2.phone_home){
+        if (!body.phone_numbers) body.phone_numbers = [];
+        body.phone_numbers.push({phone: json2.phone_home, kind: home});
     }
     
-    if (isAddress(body, "home")){
-        console.log("found home address");
+    if (!isAddress(body, "home")){
+        if (!body.street_addresses) body.street_address = [];
+        body.street_addresses.push({
+            street: json2.address_home_street,
+            city: json2.address_home_city,
+            state: json2.address_home_state,
+            postal_code: json2.address_home_zip,
+        });
     }
-    return body;
 
 
 }
