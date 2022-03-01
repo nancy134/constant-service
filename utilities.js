@@ -37,19 +37,61 @@ exports.createConstantContactData = function(body, json2){
     if (!body.last_name && json2.last){
        body.last_name = json2.last;
     }
+
+
     
     if (!isPhone(body, "home") && json2.phone_home){
         if (!body.phone_numbers) body.phone_numbers = [];
-        body.phone_numbers.push({phone: json2.phone_home, kind: home});
+        body.phone_numbers.push({phone: json2.phone_home, kind: "home"});
     }
+
+    if (!isPhone(body, "work") && json2.phone_work){
+        if (!body.phone_numbers) body.phone_numbers = [];
+        body.phone_numbers.push({phone: json2.phone_work, kind: "work"});
+    }
+
+    if (!isPhone(body, "mobile") && json2.mobile_mobile){
+        if (!body.phone_numbers) body.phone_numbers = [];
+        body.phone_numbers.push({phone: json2.phone_mobile, kind: "mobile"});
+    }
+
+    if (!isPhone(body, "other") && json2.mobile_other){
+        if (!body.phone_numbers) body.phone_numbers = [];
+        body.phone_numbers.push({phone: json2.phone_other, kind: "other"});
+    }
+
+
     
     if (!isAddress(body, "home")){
         if (!body.street_addresses) body.street_address = [];
         body.street_addresses.push({
+            kind: "home",
             street: json2.address_home_street,
             city: json2.address_home_city,
             state: json2.address_home_state,
             postal_code: json2.address_home_zip,
+        });
+    }
+
+    if (!isAddress(body, "work")){
+        if (!body.street_addresses) body.street_address = [];
+        body.street_addresses.push({
+            kind: "work",
+            street: json2.address_work_street,
+            city: json2.address_work_city,
+            state: json2.address_work_state,
+            postal_code: json2.address_work_zip,
+        });
+    }
+
+    if (!isAddress(body, "other")){
+        if (!body.street_addresses) body.street_address = [];
+        body.street_addresses.push({
+            kind: "other",
+            street: json2.address_other_street,
+            city: json2.address_other_city,
+            state: json2.address_other_state,
+            postal_code: json2.address_other_zip,
         });
     }
 

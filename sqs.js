@@ -31,22 +31,15 @@ exports.handleSQSMessage = function(message){
             });
 
         } else {
-            //console.log("Create Account");
-            var contact =
-            {
-                email_address: {
-                    address : json2.email
-                },
-                first_name: json2.first,
-                last_name : json2.last,
-                create_source: "Account",
-
-                custom_fields: [
-                    {
-                        custom_field_id: json2.customFieldId,
-                        value: json2.sparkId
-                    }]
-            };
+            var body = [];
+            var contact =  utilities.createConstantContactData(body, json2);
+            contact.custom_fields = [
+                {
+                    custom_field_id: json2.customFieldId,
+                    value: json2.sparkId
+                }
+            ];
+            console.log(contact);
             //console.log(contact);
             constantService.createContact(json2.token, contact).then(function(newContact){
                 //console.log(newContact);
