@@ -167,12 +167,8 @@ app.get('/contact_custom_fields', (req, res) => {
     var accessToken = utilities.getAccessToken(req);
     var name = req.query.name;
     ccService.getContactCustomFields(accessToken, name).then(function(customFields){
-        console.log("customFields:");
-        console.log(customFields);
         res.json(customFields);
     }).catch(function(err){
-        console.log("err:");
-        console.log(err);
         res.status(400).json(err);
     });
 });
@@ -188,9 +184,7 @@ app.get('/contact_tags', (req, res) => {
 
 app.post('/contact_tags', (req, res) => {
     var accessToken = utilities.getAccessToken(req);
-    console.log(req.body);
     ccService.createContactTag(accessToken, req.body).then(function(contact){
-    //ccService.createContact(accessToken, req.body).then(function(contact){
         res.json(contact);
     }).catch(function(err){
         res.status(400).json(err);
