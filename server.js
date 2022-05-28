@@ -14,8 +14,8 @@ const url = require('url');
 const sqsService = require('./sqs');
 
 
-app.use(bodyParser.urlencoded({extended:false}));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({limit: '10mb', extended:false}));
+app.use(bodyParser.json({limit: '10mb'}));
 app.use(cors());
 
 app.get('/', (req, res) => {
